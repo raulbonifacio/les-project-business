@@ -1,0 +1,21 @@
+{
+	"name": "les-project-business",
+	"version": "1.0.0",
+	"description": "",
+	"main": "src/index.js",
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"interactive": "node -i -r 'dotenv/config' -e '_ = require(\"./src/index.js\")' --experimental-repl-await"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "^5.0.0",
+		"cls-hooked": "^4.2.2",
+		"dotenv": "^8.2.0",
+		"mariadb": "^2.5.2",
+		"nodemon": "^2.0.6",
+		"sequelize": "^6.3.5"
+	}
+}
