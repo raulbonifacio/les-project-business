@@ -7,7 +7,7 @@ function mustBeFilled({ field, label = field }) {
 		if (field in errors || !(field in input)) return next();
 
 		if (String(value).length == 0) {
-			errors[field] = `The ${label} must be filled.`;
+			errors[field] = `O campo ${label} precisa estar preenchido.`;
 		}
 
 		return next();

@@ -8,7 +8,7 @@ function mustBeADate({ field, label = field }) {
 		if (field in errors || !(field in input)) return next();
 
 		if (!isADate(String(value))) {
-			errors[field] = `The ${label} must be a valid date.`;
+			errors[field] = `O campo ${label} precisa ser uma data válida.`;
 		}
 
 		return next();

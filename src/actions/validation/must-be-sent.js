@@ -5,7 +5,7 @@ function mustBeSent({ field, label = field }) {
 		if (field in errors) return next();
 
 		if (!(field in input)) {
-			errors[field] = `The ${label} is must be sent.`;
+			errors[field] = `O campo ${label} precisa ser enviado.`;
 		}
 
 		return next();

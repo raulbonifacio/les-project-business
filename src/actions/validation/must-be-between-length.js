@@ -8,7 +8,7 @@ function mustBeBetweenLength({ field, label = field, minLength, maxLength }) {
 		if (field in errors || !(field in input)) return next();
 
 		if (!isInsideRange(String(value), minLength, maxLength)) {
-			errors[field] = `The ${label} must be between ${minLength} and ${maxLength} characters.`;
+			errors[field] = `O campo ${label} precis estar entre ${minLength} e ${maxLength} caracteres.`;
 		}
 
 		return next();

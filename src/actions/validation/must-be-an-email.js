@@ -8,7 +8,7 @@ function mustBeAnEmail({ field, label = field }) {
 		if (field in errors || !(field in input)) return next();
 
 		if (!isAnEmail(String(value))) {
-			errors[field] = `The ${label} must be a valid e-mail.`;
+			errors[field] = `O campo ${label} precisa ser um e-mail válido.`;
 		}
 
 		return next();

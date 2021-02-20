@@ -6,7 +6,7 @@ function mustBeANumber({ field, label = field }) {
 		if (field in errors || !(field in input)) return next();
 
 		if (Number.isNaN(Number(value))) {
-			errors[field] = `The ${label} is not a number.`;
+			errors[field] = `O campo ${label} precisa ser um número.`;
 		}
 
 		return next();

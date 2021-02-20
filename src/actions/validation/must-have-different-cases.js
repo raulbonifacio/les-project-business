@@ -8,7 +8,7 @@ function mustHaveDifferentCases({ field, label = field }) {
 		if (field in errors || !(field in input)) return next();
 
 		if (!containsDifferentCases(String(value))) {
-			errors[field] = `The ${label} must have different cases.`;
+			errors[field] = `O campo ${label} precisa conter letras maiúsculas e minúsculas.`;
 		}
 
 		return next();

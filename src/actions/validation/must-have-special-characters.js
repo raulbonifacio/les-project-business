@@ -8,7 +8,7 @@ function mustHaveSpecialCharacters({ field, label = field }) {
 		if (field in errors || !(field in input)) return next();
 
 		if (!containsSpecialCharacters(String(value))) {
-			errors[field] = `The ${label} must have special characters.`;
+			errors[field] = `O campo ${label} precisa conter caracteres especiais.`;
 		}
 
 		return next();
