@@ -8,15 +8,16 @@ function facade(handlers = {}, globals = {}) {
 	}
 
 	const facade = new Proxy(handlers, {
+
 		get(handlers, handler) {
 
 			assert(typeof handlers[handler] == "function");
 
 			return (input, overrides = {}) => {
 
-				const ctx = new Context(input, { ...globals, ...overrides, facade });
+				const context = new Context(input, { ...globals, ...overrides, facade });
 
-				return Promise.resolve(handlers[handler]()(ctx)).then(() => ctx);
+				return Promise.resolve(handlers[handler]()(context)).then(() => context);
 			};
 		},
 	});
