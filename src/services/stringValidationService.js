@@ -40,7 +40,7 @@ const stringValidators = {
 	 * string is a valid Date.
 	 */
 	isADate(string) {
-		return new Date(string) != "Invalid Date";
+		return new Date(string || "") != "Invalid Date";
 	},
 
 	/**
