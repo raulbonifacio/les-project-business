@@ -1,23 +1,27 @@
 const assert = require("assert");
 const Context = require("./context");
 
-function facade(actions = {}, globals = {}) {
-	for (const [name, action] of Object.entries(actions)) {
-		assert(typeof action == "function", `Action ${name} is not a function.`);
+function facade(handlers = {}, globals = {}) {
+
+	for (const [name, handler] of Object.entries(handlers)) {
+		assert(typeof handler == "function", `Handler ${name} is not a function.`);
 	}
 
-	return new Proxy(actions, {
-		get(actions, action) {
-			if (typeof actions[action] == "undefined") return;
+	const facade = new Proxy(handlers, {
+		get(handlers, handler) {
+
+			assert(typeof handlers[handler] == "function");
 
 			return (input, overrides = {}) => {
-				const context = new Context(input, { ...globals, ...overrides });
-				return Promise.resolve(actions[action](context)).then(
-					context => context.output
-				);
+
+				const ctx = new Context(input, { ...globals, ...overrides, facade });
+
+				return Promise.resolve(handlers[handler]()(ctx)).then(() => ctx);
 			};
 		},
 	});
+
+	return facade;
 }
 
 module.exports = facade;

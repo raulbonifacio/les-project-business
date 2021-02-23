@@ -8,7 +8,7 @@ const stringValidators = {
 	 * string have different cases.
 	 */
 	containsDifferentCases(string) {
-		return string.toUpperCase() != string || string.toLowerCase() != string;
+		return string.toUpperCase() != string && string.toLowerCase() != string;
 	},
 
 	/**

@@ -1,8 +1,8 @@
 const facade = require("./facade");
 
-const logins = require("./actions/domain/logins");
-
 const { transaction, sequelize, models } = require("./database");
+
+const handlers = require("./handlers");
 
 const globals = {
 	transaction,
@@ -10,8 +10,4 @@ const globals = {
 	models,
 };
 
-const actions = {
-	...logins,
-};
-
-module.exports = facade(actions, globals);
+module.exports = facade(handlers, globals);

@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
-const cls = require("cls-hooked");
 const basename = path.basename(__filename);
 
 const {
@@ -14,12 +13,6 @@ const {
 } = require("./config");
 
 const setDefaultScopes = require("./set-default-scopes");
-
-const { SEQUELIZE_CLS_NAMESPACE } = process.env;
-
-const namespace = cls.createNamespace(SEQUELIZE_CLS_NAMESPACE);
-
-Sequelize.useCLS(namespace);
 
 const sequelize = new Sequelize(database, username, password, {
 	host,
@@ -46,7 +39,6 @@ fs.readdirSync(MODELS)
 		exports.models[model.name] = model;
 
 		setDefaultScopes(model);
-
 	});
 
 Object.keys(exports.models).forEach(modelName => {
@@ -55,7 +47,3 @@ Object.keys(exports.models).forEach(modelName => {
 
 exports.sequelize = sequelize;
 exports.Sequelize = Sequelize;
-exports.transaction = async scope =>
-	(await cls.getNamespace(SEQUELIZE_CLS_NAMESPACE).get("transaction"))
-		? scope(exports.models)
-		: sequelize.transaction(scope.bind(null, exports.models));

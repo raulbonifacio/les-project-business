@@ -8,6 +8,27 @@ module.exports = {
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
+			{
+				id: 2,
+				name: "admin",
+				description: "The master user",
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			},
+			{
+				id: 3,
+				name: "operator",
+				description: "The master user",
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			},
+			{
+				id: 4,
+				name: "customer",
+				description: "The master user",
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			},
 		]);
 
 		await queryInterface.bulkInsert("PermissionsRoles", [
