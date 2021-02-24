@@ -1,8 +1,9 @@
 function validateLoginUserAvailability() {
-	return async ({ input, output }, next) => {
+	return async ({ input, output, state }, next) => {
+
 		const { errors } = output;
 		const { userId } = input;
-		const { User } = globals.models;
+		const { User } = state.models;
 
 		if ("userId" in errors || !("userId" in input)) return next();
 
