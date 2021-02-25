@@ -6,7 +6,11 @@
 	"devDependencies": {},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"interactive": "node -i -r 'dotenv/config' -e '_ = require(\"./src/index.js\")' --experimental-repl-await"
+		"interactive": "node -i -r 'dotenv/config' -e '_ = require(\"./src/index.js\")' --experimental-repl-await",
+		"migrate": "npx sequelize-cli db:migrate",
+		"undo-migrate": "npx sequelize-cli db:migrate:undo",
+		"seed": "npx sequelize-cli db:seed:all",
+		"undo-seed": "npx sequelize-cli db:seed:undo:all"
 	},
 	"author": "",
 	"license": "ISC",
@@ -14,7 +18,6 @@
 		"bcrypt": "^5.0.0",
 		"cls-hooked": "^4.2.2",
 		"dotenv": "^8.2.0",
-		"logger": "0.0.1",
 		"mariadb": "^2.5.2",
 		"nodemon": "^2.0.6",
 		"sequelize": "^6.3.5"
