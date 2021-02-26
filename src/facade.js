@@ -9,7 +9,7 @@ function facade(handlers = {}, initialState = {}) {
 	const facade = new Proxy(handlers, {
 		get(handlers, handler) {
 
-			assert(typeof handlers[handler] == "function");
+			assert(typeof handlers[handler] == "function") ;
 
 			return (input, overrides = {}, externalContext) => {
 				const context =
@@ -22,7 +22,7 @@ function facade(handlers = {}, initialState = {}) {
 
 				handler = handlers[handler]();
 
-				return Promise.resolve(handler(context)).then(() => [...context]);
+				return Promise.resolve(handler(context)).then(() => context);
 			};
 		},
 	});

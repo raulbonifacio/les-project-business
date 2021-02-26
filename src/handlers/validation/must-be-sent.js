@@ -1,14 +1,11 @@
+const validate = require("./validate");
+
 function mustBeSent({ field, label = field }) {
-	return ({ input, errors }, next) => {
-
-		if (field in errors) return next();
-
-		if (!(field in input)) {
-			errors[field] = `O campo ${label} precisa ser enviado.`;
-		}
-
-		return next();
-	};
+	return validate({
+		field,
+		message: `O campo ${label} precisa ser enviado.`,
+		validator: (_, context) => field in context.input,
+	});
 }
 
 module.exports = mustBeSent;

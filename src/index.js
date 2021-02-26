@@ -4,10 +4,10 @@ const { transaction, sequelize, models } = require("./database");
 
 const handlers = require("./handlers");
 
-const globals = {
+const state = {
 	transaction,
 	sequelize,
 	models,
 };
 
-module.exports = facade(handlers, globals);
+module.exports = facade(handlers, state);

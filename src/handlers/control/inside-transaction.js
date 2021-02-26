@@ -1,12 +1,12 @@
 function insideTransaction() {
-	return async ({ globals, errors }, next) => {
+	return async ({ state, errors }, next) => {
 
-		if (globals.transaction) return next();
+		if (state.transaction) return next();
 
-		const transaction = await globals.sequelize.transaction();
+		const transaction = await state.sequelize.transaction();
 
 		try {
-			globals.transaction = transaction;
+			state.transaction = transaction;
 
 			await next();
 
@@ -15,15 +15,13 @@ function insideTransaction() {
 			} else {
 				return await transaction.commit();
 			}
-
 		} catch (error) {
-
 			await transaction.rollback();
 
 			throw error;
 		}
 
-		delete globals.transaction;
+		delete state.transaction;
 	};
 }
 

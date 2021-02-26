@@ -1,7 +1,7 @@
 function mustExistInModel({ field, label = field, model, message }) {
-	return async ({ input, errors }, next) => {
+	return async ({ input, errors, state }, next) => {
 		const { [field]: id } = input;
-		const { [model]: Model } = globals.models;
+		const { [model]: Model } = state.models;
 
 		if (field in errors || !(field in input)) return next();
 

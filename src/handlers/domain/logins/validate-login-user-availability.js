@@ -1,21 +1,22 @@
+const validateIfSent = require("../../validation/validate-if-sent");
+
 function validateLoginUserAvailability() {
-	return async ({ input, output, state }, next) => {
 
-		const { errors } = output;
-		const { userId } = input;
-		const { User } = state.models;
+	const validator = async (userId, { state }) => {
+		const { transaction, models } = state;
 
-		if ("userId" in errors || !("userId" in input)) return next();
+		const user = await models.User.findByPk(userId, {
+			transaction,
+		});
 
-		const user = await User.findByPk(userId);
-		const login = await user.getLogin();
-
-		if (login) {
-			errors.userId = `O usuário já possui um login.`;
-		}
-
-		return await next();
+		return await user.hasLogin({ transaction });
 	};
+
+	return validateIfSent({
+		field: "userId",
+		message: "O usuário já possui um login.",
+		validator,
+	});
 }
 
 module.exports = validateLoginUserAvailability;

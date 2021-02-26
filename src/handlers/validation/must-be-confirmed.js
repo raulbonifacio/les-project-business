@@ -1,15 +1,16 @@
+const validateIfSent = require("./validate-if-sent");
+
 function mustBeConfirmed({ field, label = field }) {
-	return ({ input, errors }, next) => {
-		const { [field]: value, [`${field}Confimation`]: confirmation } = input;
+	return validateIfSent({
+		field,
+		message: `A cofirmação do campo ${label} não confere.`,
+		validator: (value, { input }) => {
 
-		if (field in errors || !(field in input)) return next();
-
-		if (!(`${field}Confirmation` in input) || value != confirmation) {
-			errors[field] = `A cofirmação do campo ${label} não confere.`;
-		}
-
-		return next();
-	};
+			const confirmation = input[field + "Confirmation"];
+			console.log(confirmation, value);
+			return confirmation && confirmation == value;
+		},
+	});
 }
 
 module.exports = mustBeConfirmed;

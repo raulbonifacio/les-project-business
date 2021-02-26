@@ -1,16 +1,11 @@
+const validateIfSent = require("./validate-if-sent");
+
 function mustBeFilled({ field, label = field }) {
-	return ({ input, errors }, next) => {
-
-		const { [field]:value } = input
-
-		if (field in errors || !(field in input)) return next();
-
-		if (String(value).length == 0) {
-			errors[field] = `O campo ${label} precisa estar preenchido.`;
-		}
-
-		return next();
-	};
+	return validateIfSent({
+		field,
+		message: `O campo ${label} precisa estar preenchido.`,
+		validator: val => String(val).length > 0,
+	});
 }
 
 module.exports = mustBeFilled;

@@ -1,34 +1,30 @@
 function storeCustomer() {
 	return async ({ input, output, errors, state }, next) => {
-
 		const { facade, transaction, models } = state;
+
+		let user;
 
 		const customerRole = await models.Role.findOne(
 			{ where: { name: "customer" } },
 			{ transaction }
 		);
 
-		const user = customerRole && (await customerRole.createUser());
+		const newUser = customerRole && (await customerRole.createUser());
 
-		if (user) {
-			output.user = user;
+		if (newUser) {
+			user = newUser.get();
 		} else {
 			errors.general = `Não foi possível criar um cliente.`;
 		}
 
-		const [loginErrors, loginOutput ] = await facade.createLogin(
-			{ userId: user?.id, ...input.login },
+		const [createLoginErrors, createLoginOutput] = await facade.createLogin(
+			{ ...input.login, userId: user?.id },
 			{ transaction }
 		);
 
-		if (loginOutput) {
-			output.login = loginOutput.login;
-		}
-
-		if (loginErrors) {
-			errors.login = loginErrors;
-		}
-		
+		if (createLoginErrors) {
+			errors.login = createLoginErrors;
+		} 
 
 		await next();
 	};

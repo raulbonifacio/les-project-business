@@ -1,15 +1,11 @@
+const validateIfSent = require("./validate-if-sent");
+
 function mustBeANumber({ field, label = field }) {
-	return ({ input, errors }, next) => {
-		const { [field]: value } = input;
-
-		if (field in errors || !(field in input)) return next();
-
-		if (Number.isNaN(Number(value))) {
-			errors[field] = `O campo ${label} precisa ser um número.`;
-		}
-
-		return next();
-	};
+	return validateIfSent({
+		field,
+		message: `O campo ${label} precisa ser um número.`,
+		validator: val => !Number.isNaN(Number(val)),
+	});
 }
 
 module.exports = mustBeANumber;

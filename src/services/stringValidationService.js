@@ -1,8 +1,10 @@
 const SUPER_EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const SPECIAL_CHARACTERS = /[^a-zA-Z0-9]/;
+const SPECIAL_CHARACTERS_REGEX = /[^a-zA-Z0-9]/;
 const NUMBERS_REGEX = /[0-9]/;
+const BOOLEAN_REGEX = /^(false|true)$/;
+const CPF_REGEX = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/i;
 
-const stringValidators = {
+const stringValidationService = {
 	/**
 	 * This function returns true if the provided
 	 * string have different cases.
@@ -24,7 +26,7 @@ const stringValidators = {
 	 * contains special characters
 	 */
 	containsSpecialCharacters(string) {
-		return SPECIAL_CHARACTERS.test(string);
+		return SPECIAL_CHARACTERS_REGEX.test(string);
 	},
 
 	/**
@@ -56,7 +58,32 @@ const stringValidators = {
 	 * string represents a boolean.
 	 */
 	isABoolean(value) {
-		return /^(false|true)$/.test(value);
+		return BOOLEAN_REGEX.test(value);
+	},
+
+	/**
+	 * This function returns true if the provided
+	 * string has a CPF format and is valid.
+	 */
+	isCPF(value) {
+		return CPF_REGEX.test(value);
+	},
+
+	/**
+	 * This function returns true if the provided
+	 * value matches one of the provided regular
+	 * expressions.
+	 */
+	mustMatchOneOf(value, ...regexes) {
+		return regexes.some(regex => regex.test(value));
+	},
+
+	/**
+	 * This function returns true if the provided
+	 * value matches one of the provided values.
+	 */
+	mustBeOneOf(value, ...values) {
+		return values.some(aValue => value == aValue);
 	},
 
 	/**
@@ -68,4 +95,4 @@ const stringValidators = {
 	},
 };
 
-module.exports = stringValidators;
+module.exports = stringValidationService;

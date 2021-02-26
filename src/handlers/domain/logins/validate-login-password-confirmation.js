@@ -1,31 +1,15 @@
 const mustBeSent = require("../../validation/must-be-sent");
 const mustBeFilled = require("../../validation/must-be-filled");
 const chain = require("../../../chain");
+const mustBeConfirmed = require("../../validation/must-be-confirmed");
 
 function validateLoginPasswordConfirmation() {
-
 	const rules = {
-		field: "passwordConfirmation",
-		label: "confirmação de senha",
+		field: "password",
+		label: "senha",
 	};
 
-	return chain(
-		mustBeSent(rules),
-		mustBeFilled(rules),
-		({ input, errors }, next) => {
-
-			const { password, passwordConfirmation } = input;
-
-			if (passwordConfirmation in errors || !(passwordConfirmation in input))
-				return next();
-
-			if (passwordConfirmation != password) {
-				errors.passwordConfirmation = `A a confirmação de senha não confere.`;
-			}
-
-			return next();
-		}
-	);
+	return chain(mustBeSent(rules), mustBeFilled(rules), mustBeConfirmed(rules));
 }
 
 module.exports = validateLoginPasswordConfirmation;
