@@ -1,12 +1,12 @@
 const { isCPF } = require("../../services/stringValidationService");
 const validateIfSent = require("./validate-if-sent");
 
-function mustBeACPF({ field, label = field }) {
-	return validateIfSent({
-		field,
-		message: `O campo ${label} não é um CPF válido.`,
-		validator: isCPF,
-	});
+class MustBeACPF extends validateIfSent {
+	constructor(field, label = field) {
+		super();
+		this.field = field;
+		this.message = `O campo ${label} não é um CPF válido.`;
+		this.validator = isCPF;
+	}
 }
-
-module.exports = mustBeACPF;
+module.exports = MustBeACPF;

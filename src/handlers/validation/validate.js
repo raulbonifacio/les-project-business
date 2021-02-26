@@ -1,18 +1,28 @@
-function validate({ field, validator, message, args = [] }) {
+const Handler = require("../handler");
 
-	return async (context, next) => {
+class Validate extends Handler {
 
-		const { input, errors } = context;
+	constructor() {
+		super();
+		this.args =  [];
+		this.field = field;
+		this.message = message;
+		this.validator = () => true;
+	}
 
-		if (field in errors) return next();
+	async handle(context, next) {
+		const { hasErrors, input, errors } = context;
 
-		const validatorArgs = [input[field], ...args, context];
+		if (hasErrors(this.field)) return next();
 
-		if (! await validator(...validatorArgs)) {
-			errors[field] = message;
+		const validatorArgs = [input[this.field], ...this.args, context];
+
+		if (!(await this.validator(...validatorArgs))) {
+			errors[this.field] = this.message;
 		}
 
 		return next();
-	};
+	}
 }
-module.exports = validate;
+
+module.exports = Validate;

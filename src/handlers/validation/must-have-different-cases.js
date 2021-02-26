@@ -2,14 +2,15 @@ const {
 	containsDifferentCases,
 } = require("../../services/stringValidationService");
 
-const validateIfSent = require("./validate-if-sent");
+const ValidateIfSent = require("./validate-if-sent");
 
-function mustHaveDifferentCases({ field, label = field }) {
-	return validateIfSent({
-		field,
-		message: `O campo ${label} precisa conter letras maiúsculas e minúsculas.`,
-		validator: containsDifferentCases,
-	});
+class MustHaveDifferentCases extends ValidateIfSent {
+	constructor(field, label = field) {
+		super()
+		this.field = field
+		this.message = `O campo ${label} precisa conter letras maiúsculas e minúsculas.`;
+		this.validator = containsDifferentCases;
+	}
 }
 
-module.exports = mustHaveDifferentCases;
+module.exports = MustHaveDifferentCases;

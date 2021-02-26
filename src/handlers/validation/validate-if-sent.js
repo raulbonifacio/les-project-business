@@ -1,14 +1,22 @@
-const validate = require("./validate");
+const Validate = require("./validate");
 
-function validateIfSent(rules) {
-	const validator = (...args) => {
-		const context = [...args].pop();
+class ValidateIfSent extends Validate {
+	constructor(field) {
+		super(field);
+	}
 
-		if (!(rules.field in context.input)) return true;
+	set validator(validator) { 
+		this.validator = (...args) => {
 
-		return rules.validator(...args);
-	};
+			const context = [...args].pop();
 
-	return validate({ ...rules, validator });
+			if (!context.hasInput(field)) return true;
+
+			console.log("shit");
+
+			return validator(...args);
+		};
+	}
 }
-module.exports = validateIfSent;
+
+module.exports = ValidateIfSent;

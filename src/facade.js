@@ -1,15 +1,16 @@
 const assert = require("assert");
 const Context = require("./context");
+const Handler = require("./handlers/handler");
 
 function facade(handlers = {}, initialState = {}) {
 	for (const [name, handler] of Object.entries(handlers)) {
-		assert(typeof handler == "function", `Handler ${name} is not a function.`);
+		assert( handler instanceof Handler, `Handler ${name} is not a handler.`);
 	}
 
 	const facade = new Proxy(handlers, {
 		get(handlers, handler) {
 
-			assert(typeof handlers[handler] == "function") ;
+			assert( handlers[handler] instanceof Handler, `Handler ${handler} is not a handler.`);
 
 			return (input, overrides = {}, externalContext) => {
 				const context =
@@ -20,9 +21,9 @@ function facade(handlers = {}, initialState = {}) {
 						facade,
 					});
 
-				handler = handlers[handler]();
+				handler = handlers[handler];
 
-				return Promise.resolve(handler(context)).then(() => context);
+				return Promise.resolve(handler.handle(context)).then(() => context);
 			};
 		},
 	});

@@ -1,13 +1,14 @@
 const { isInsideRange } = require("../../services/stringValidationService");
-const validateIfSent = require("./validate-if-sent");
+const ValidateIfSent = require("./validate-if-sent");
 
-function mustBeBetweenLength({ field, label = field, minLength = 1, maxLength = 255}) {
-	return validateIfSent({
-		field,
-		validator: isInsideRange,
-		message: `O campo ${label} precisa estar entre ${minLength} e ${maxLength} caracteres.`,
-		args: [minLength, maxLength]
-	});
+class MustBeBetweenLength extends ValidateIfSent {
+	constructor(field, label = field, minLength = 1, maxLength = 255) {
+		super();
+		this.field = field;
+		this.message = `O campo ${label} precisa estar entre ${minLength} e ${maxLength} caracteres.`;
+		this.validator = isInsideRange;
+		this.args = [minLength, maxLength];
+	}
 }
 
-module.exports = mustBeBetweenLength;
+module.exports = MustBeBetweenLength;

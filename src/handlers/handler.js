@@ -4,24 +4,22 @@ class Handler {
 		handlers.forEach(handler => assert(handler instanceof Handler));
 
 		return new (class extends Handler {
-			async handle(context, next) {
+			async handle(context, next = () => {}) {
 
-				const handlerStack = [...handlers];
-				const previousHandler = null;
+				const stack = [...handlers];
+				let previousHandler = null;
 
-				const callHandlerStack = handler => {
-
+				const callStack = handler => {
 					assert(handler != previousHandler);
 					previousHandler = handler;
-
-					return handler.handle(context, () =>
-						callHandlerStack(handlerStack.shift())
-					);
+					if (handler) {
+						return handler.handle(context, () => callStack(stack.shift()));
+					}
 				};
 
-				return Promise.resolve(callHandlerStack(handlerStack.shift())).then(
-					next
-				);
+				return Promise.resolve(callStack(stack.shift()))
+					.then(next)
+					.then(() => context);
 			}
 		})();
 	}

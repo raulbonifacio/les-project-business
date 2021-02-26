@@ -1,15 +1,15 @@
 const {
 	containsSpecialCharacters,
 } = require("../../services/stringValidationService");
+const ValidateIfSent = require("./validate-if-sent");
 
-const validateIfSent = require("./validate-if-sent");
-
-function mustHaveSpecialCharacters({ field, label = field }) {
-	return validateIfSent({
-		field,
-		message: `O campo ${label} precisa conter caracteres especiais.`,
-		validator: containsSpecialCharacters,
-	});
+class MustHaveSpecialCharacters extends ValidateIfSent {
+	constructor(field, label = field) {
+		super() 
+		this.field = field;
+		this.message = `O campo ${label} precisa conter caracteres especiais.`;
+		this.validate = containsSpecialCharacters;
+	}
 }
 
-module.exports = mustHaveSpecialCharacters;
+module.exports = MustHaveSpecialCharacters;

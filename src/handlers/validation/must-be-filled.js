@@ -1,11 +1,11 @@
-const validateIfSent = require("./validate-if-sent");
+const ValidateIfSent = require("./validate-if-sent");
 
-function mustBeFilled({ field, label = field }) {
-	return validateIfSent({
-		field,
-		message: `O campo ${label} precisa estar preenchido.`,
-		validator: val => String(val).length > 0,
-	});
+class MustBeFilled extends ValidateIfSent {
+	constructor(field, label = field) {
+		super();
+		this.field = field;
+		this.message = `O campo ${label} precisa estar preenchido.`;
+		this.validator = val => String(val).length > 0;
+	}
 }
-
-module.exports = mustBeFilled;
+module.exports = MustBeFilled;

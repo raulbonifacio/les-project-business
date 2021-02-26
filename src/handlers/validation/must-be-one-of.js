@@ -1,14 +1,16 @@
-const validateIfSent = require("./validate-if-sent");
+const {
+	mustBeOneOf: mustBeOneOfValues,
+} = require("../../services/stringValidationService");
+const ValidateIfSent = require("./validate-if-sent");
 
-const { mustBeOneOf: mustBeOneOfValues } = require("../../services/stringValidationService");
-
-function mustBeOneOf({field, label=field, possibleValues, }) { 
-	return validateIfSent({ 
-		field,
-		message: `O campo ${label} não possui um dos seguintes valores: ${possibleValues.join(", ") }.`,
-		validator: mustBeOneOfValues,
-		args: possibleValues
-	});
+class MustBeOneOf extends ValidateIfSent {
+	constructor(field, label = field, ...possibleValues) {
+		super();
+		this.field = field;
+		this.message = `O campo ${label} não possui um dos seguintes valores: ${possibleValues.join( ", ")}.`;
+		this.validator = mustBeOneOfValues;
+		this.args = possibleValues;
+	}
 }
 
-module.exports = mustBeOneOf;
+module.exports = MustBeOneOf;
