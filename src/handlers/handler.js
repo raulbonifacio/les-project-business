@@ -4,6 +4,7 @@ class Handler {
 		handlers.forEach(handler => assert(handler instanceof Handler));
 
 		return new (class extends Handler {
+
 			async handle(context, next = () => {}) {
 
 				const stack = [...handlers];
