@@ -1,12 +1,8 @@
 const facade = require("./facade");
 
 const { transaction, sequelize, models } = require("./database");
-const DoSomething = require("./handlers/facade/do-something");
 
-
-const handlers = { 
-	doSomething: new DoSomething(),
-}
+const handlers = require("./handlers");
 
 const state = {
 	transaction,

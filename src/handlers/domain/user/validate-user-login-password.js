@@ -1,13 +1,16 @@
-class ValidateUserLoginPassword extends Handler {
-	async handle({ input, errors }, next) {
-		const password = input?.login?.password;
+const { validatePassword } = require("../../../services/validation-service");
 
+function validateUserLoginPassword() {
+	return async ({ input, errors }, next) => {
 
-		if(error) {
-			errors.login = { ...errors.login };
-			errors.login.password = error;
+		const error = await validatePassword(input?.login?.password, "senha");
+
+		if (error) {
+			errors.login = { ...errors.login, password: error };
 		}
 
 		return next();
-	}
+	};
 }
+
+module.exports = validateUserLoginPassword;
