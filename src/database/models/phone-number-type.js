@@ -1,6 +1,7 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
+
 	class PhoneNumberType extends Model {
 		static associate({ PhoneNumber }) {
 			PhoneNumberType.hasMany(PhoneNumber, {

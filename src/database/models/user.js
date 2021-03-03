@@ -1,6 +1,7 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, _DataTypes) => {
+
 	class User extends Model {
 		static associate({ Role, Login, PersonalInformation }) {
 			User.belongsTo(Role, { foreignKey: "roleId", as: "role" });

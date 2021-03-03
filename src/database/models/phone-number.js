@@ -1,6 +1,7 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
+
 	class PhoneNumber extends Model {
 		static associate({ PhoneNumberType, PersonalInformation }) {
 			PhoneNumber.belongsTo(PhoneNumberType, {

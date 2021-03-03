@@ -1,11 +1,13 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
+
 	class PersonalInformation extends Model {
 		static associate({ User }) {
 			PersonalInformation.belongsTo(User, { foreignKey: "userId", as: "user" });
 		}
 	}
+
 	PersonalInformation.init(
 		{
 			firstName: DataTypes.STRING,
@@ -20,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 			paranoid: true,
 		}
 	);
+
 	return PersonalInformation;
 };
 

@@ -1,6 +1,7 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
+
 	class Permission extends Model {
 		static associate({ Role }) {
 			Permission.belongsToMany(Role, {
