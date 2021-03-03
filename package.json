@@ -18,6 +18,7 @@
 		"bcrypt": "^5.0.0",
 		"cls-hooked": "^4.2.2",
 		"dotenv": "^8.2.0",
+		"fastest-validator": "^1.10.0",
 		"mariadb": "^2.5.2",
 		"nodemon": "^2.0.6",
 		"sequelize": "^6.3.5"
