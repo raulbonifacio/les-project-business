@@ -1,27 +1,29 @@
 function insideTransaction() {
 	return async ({ state, errors }, next) => {
 
-		if (state.transaction) return next();
+		if (state.has("transaction")) return next();
 
 		const transaction = await state.sequelize.transaction();
 
 		try {
-			state.transaction = transaction;
+			state.set("transaction", transaction);
 
 			await next();
 
-			if (Object.keys(errors).length) {
+			if (errors.size) {
 				return await transaction.rollback();
 			} else {
 				return await transaction.commit();
 			}
+
 		} catch (error) {
+
 			await transaction.rollback();
 
 			throw error;
 		}
 
-		delete state.transaction;
+		state.delete("transaction");
 	};
 }
 

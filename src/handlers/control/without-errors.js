@@ -1,11 +1,9 @@
 function withoutErrors(...keys) {
 	return ({ errors }, next) => {
 
-		if (keys.length == 0 && Object.keys(errors).length) {
+		if(errors.size && keys.length == 0) { 
 			return;
-		}
-
-		if (keys.some(key => key in errors)) {
+		} else if(keys.some(key => errors.has(key))) {
 			return;
 		}
 
@@ -13,4 +11,4 @@ function withoutErrors(...keys) {
 	};
 }
 
-module.exports = withoutErrors;
+odule.exports = withoutErrors;
