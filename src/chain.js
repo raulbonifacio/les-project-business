@@ -1,9 +1,10 @@
 const assert = require("assert");
 
 function chain(...handlers) {
+
 	handlers.forEach(handler => assert(handler instanceof Function));
 
-	return (context, next) => {
+	return (context, next = () => true) => {
 		let previousHandler = null;
 		const handlerStack = [...handlers];
 
