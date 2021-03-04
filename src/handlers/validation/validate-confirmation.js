@@ -1,7 +1,7 @@
 const defaultMessages = {
 	notSent: confirmationLabel => `O campo ${confirmationLabel} não foi enviado.`,
 	notEqual: (label, confirmationLabel) =>
-		`O campo ${label} difere do campo ${confirmationLabel}.`,
+		`O campo ${confirmationLabel} difere do campo ${label}.`,
 	notFilled: confirmationLabel =>
 		`O campo ${confirmationLabel} não está preenchido.`,
 };
