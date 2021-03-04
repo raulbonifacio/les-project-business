@@ -11,4 +11,4 @@ function withoutErrors(...keys) {
 	};
 }
 
-odule.exports = withoutErrors;
+module.exports = withoutErrors;
