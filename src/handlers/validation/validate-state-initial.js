@@ -1,4 +1,4 @@
-const validateString = require("../../validation/validate-string");
+const validateString = require("./validate-string");
 
 const initials = [
 	"AC",

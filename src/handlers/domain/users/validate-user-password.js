@@ -5,11 +5,11 @@ const validatePassword = require("../../validation/validate-password");
 function validateUserPassword() {
 	return chain(
 		validatePassword({
-			field: "userPassword",
+			field: "password",
 			label: "senha",
 		}),
 		validateConfirmation({
-			field: "userLoginPassword",
+			field: "password",
 			label: "senha",
 			confirmation: "userPasswordConfirmation",
 			confirmationLabel: "confirmação de senha",

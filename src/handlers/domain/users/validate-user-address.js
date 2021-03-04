@@ -4,4 +4,4 @@ function validateUserAddress() {
 	return validateString({ field: "address", label: "logradouro" });
 }
 
-module.exports = validateUserAddress();
+module.exports = validateUserAddress;
