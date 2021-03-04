@@ -15,10 +15,8 @@ function validateConfirmation(
 			errors.set(confirmation, messages.notSent(confirmationLabel));
 		} else if (String(input.get(confirmation)).length == 0) {
 			errors.set(confirmation, messages.notFilled(confirmationLabel));
-		}
-
-		if (input.get(field) != input.get(confirmation)) {
-			errors.set(field, messages.notEqual(label, confirmationLabel));
+		} else if (input.get(field) != input.get(confirmation)) {
+			errors.set(confirmation, messages.notEqual(label, confirmationLabel));
 		}
 
 		return next();
