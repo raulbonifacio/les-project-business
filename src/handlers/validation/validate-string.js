@@ -9,8 +9,9 @@ const {
 const defaultMessages = {
 	required: label => `O campo ${label} não foi enviado.`,
 	type: label => `O campo ${label} não é uma string.`,
-	min: (label, min) => `O campo ${label} precisa conter mais de ${min} caracteres.`,
-	max: (label, max) => `O campo ${label} precisar conter menos de ${max} caracteres.`,
+	min: (label, min) => `O campo ${label} precisa conter mais de ${min} caractere${ min > 1 ? "s" : "" }.`,
+	max: (label, max) => `O campo ${label} precisar conter menos de ${max} caractere${ min > 1 ? "s" : "" }.`,
+	filled: label => `O campo ${label} precisa estar preenchido.`,
 	matches: (label, matches) => `O campo ${label} não atende ao formato: ${matches}.`,
 	mustIncludeNumbers: label => `O campo ${label} precisa conter números.`,
 	mustIncludeDifferentCases: label => `O campo ${label} precisa conter letras maiúsculas e minúsculas.`,
@@ -27,6 +28,7 @@ function validateString(options, messages) {
 		strict = true,
 		min,
 		max,
+		filled,
 		matches,
 		mustBeOneOf,
 		mustMatchOneOf,
@@ -54,21 +56,26 @@ function validateString(options, messages) {
 				val = String(val);
 			}
 
-			if (min && val.length < min) {
+			if (filled && val.length == 0) {
+				erros.set(field, messages.filled(label));
+			} else if (min && val.length < min) {
 				errors.set(field, messages.min(label, min));
 			} else if (max && length > max) {
 				errors.set(field, messages.max(label, max));
 			} else if (matches && !matches.test(val)) {
 				errors.set(field, messages.matches(label, matches));
 			} else if (mustBeOneOf && !isOneOf(val, ...mustBeOneOf)) {
-				errors.set(field, messages.oneOf(label, mustBeOneOf));
+				errors.set(field, messages.mustBeOneOf(label, mustBeOneOf));
 			} else if (mustMatchOneOf && !matchesOneOf(val, ...matchesOneOf)) {
 				errors.set(field, messages.oneOf(label, mustBeOneOf));
 			} else if (mustIncludeNumbers && !includesNumbers(val)) {
 				errors.set(field, messages.mustIncludeNumbers(label));
 			} else if (mustIncludeDifferentCases && !includesDifferentCases(val)) {
 				errors.set(field, messages.mustIncludeDifferentCases(label));
-			} else if ( mustIncludeSpecialCharacters && !includesSpecialCharacters(val)) {
+			} else if (
+				mustIncludeSpecialCharacters &&
+				!includesSpecialCharacters(val)
+			) {
 				errors.set(field, messages.mustIncludeSpecialCharacters(label));
 			}
 		} else if (required) {
