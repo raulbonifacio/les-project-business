@@ -2,19 +2,19 @@ const chain = require("../../../chain");
 const validateConfirmation = require("../../validation/validate-confirmation");
 const validatePassword = require("../../validation/validate-password");
 
-function validateUserPassword() {
+function validateUserLoginPassword() {
 	return chain(
 		validatePassword({
-			field: "password",
+			field: "loginPassword",
 			label: "senha",
 		}),
 		validateConfirmation({
-			field: "password",
+			field: "loginPassword",
 			label: "senha",
-			confirmation: "userPasswordConfirmation",
+			confirmation: "loginPasswordConfirmation",
 			confirmationLabel: "confirmação de senha",
 		})
 	);
 }
 
-module.exports = validateUserPassword;
+module.exports = validateUserLoginPassword;

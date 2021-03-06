@@ -1,29 +1,46 @@
 const chain = require("../chain");
-const validateUserAddress = require("./domain/users/validate-user-address");
+const insideTransaction = require("./control/inside-transaction");
+const withoutErrors = require("./control/without-errors");
+const storeUser = require("./domain/users/store-user");
+const validateUserAddressCity = require("./domain/users/validate-user-address-city");
+const validateUserAddressComplement = require("./domain/users/validate-user-address-complement");
+const validateUserAddressNeighbourhood = require("./domain/users/validate-user-address-neighbourhood");
 const validateUserAddressNumber = require("./domain/users/validate-user-address-number");
-const validateUserAddressType = require("./domain/users/validate-user-address-type");
-const validateUserBirthDate = require("./domain/users/validate-user-birth-date");
-const validateUserCity = require("./domain/users/validate-user-city");
-const validateUserComplement = require("./domain/users/validate-user-complement");
-const validateUserEmail = require("./domain/users/validate-user-email");
-const validateUserPassword = require("./domain/users/validate-user-password");
-const validateUserPhoneNumber = require("./domain/users/validate-user-phone-number");
-const validateUserPostalCode = require("./domain/users/validate-user-postal-code");
-const validateUserSex = require("./domain/users/validate-user-sex");
-const validateUserState = require("./domain/users/validate-user-state");
+const validateUserAddressPostalCode = require("./domain/users/validate-user-address-postal-code");
+const validateUserAddressPublicArea = require("./domain/users/validate-user-address-public-area");
+const validateUserAddressPublicAreaType = require("./domain/users/validate-user-address-public-area-type");
+const validateUserAddressState = require("./domain/users/validate-user-address-state");
+const validateUserLoginEmail = require("./domain/users/validate-user-login-email");
+const validateUserLoginEmailAvailability = require("./domain/users/validate-user-login-email-availability");
+const validateUserLoginPassword = require("./domain/users/validate-user-login-password");
+const validateUserProfileBirthDate = require("./domain/users/validate-user-profile-birth-date");
+const validateUserProfileCPF = require("./domain/users/validate-user-profile-cpf");
+const validateUserProfileCPFAvailability = require("./domain/users/validate-user-profile-cpf-availability");
+const validateUserProfileFirstName = require("./domain/users/validate-user-profile-first-name");
+const validateUserProfileLastName = require("./domain/users/validate-user-profile-last-name");
+const validateUserProfileSex = require("./domain/users/validate-user-profile-sex");
 
 exports.createUser = () =>
 	chain(
-		validateUserBirthDate(),
-		validateUserSex(),
-		validateUserEmail(),
-		validateUserPassword(),
-		validateUserPostalCode(),
-		validateUserAddress(),
-		validateUserAddressType(),
+		validateUserAddressPublicArea(),
+		validateUserAddressPublicAreaType(),
+		validateUserAddressComplement(),
+		validateUserAddressPostalCode(),
+		validateUserAddressNeighbourhood(),
 		validateUserAddressNumber(),
-		validateUserCity(),
-		validateUserState(),
-		validateUserComplement(),
-		validateUserPhoneNumber(),
+		validateUserAddressCity(),
+		validateUserAddressState(),
+		validateUserLoginEmail(),
+		validateUserLoginPassword(),
+		validateUserProfileCPF(),
+		validateUserProfileSex(),
+		validateUserProfileBirthDate(),
+		validateUserProfileFirstName(),
+		validateUserProfileLastName(),
+		withoutErrors(),
+		insideTransaction(),
+		validateUserLoginEmailAvailability(),
+		validateUserProfileCPFAvailability(),
+		withoutErrors(),
+		storeUser(),
 	);

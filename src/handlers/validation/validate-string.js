@@ -57,7 +57,7 @@ function validateString(options, messages) {
 			}
 
 			if (filled && val.length == 0) {
-				erros.set(field, messages.filled(label));
+				errors.set(field, messages.filled(label));
 			} else if (min && val.length < min) {
 				errors.set(field, messages.min(label, min));
 			} else if (max && length > max) {

@@ -1,6 +1,7 @@
 const {
 	isInteger,
 	hasPrecision,
+
 } = require("../../services/number-validation-service");
 
 const defaultMessages = {
@@ -32,20 +33,21 @@ function validateNumber(
 			if (strict && Number.isNaN(Number(input.get(field)))) {
 				errors.set(field, messages.type(label));
 			}
+
 			const number = Number(input.get(field));
 
-			if (min && number < min) {
+			if (min != undefined && number < min) {
 				errors.set(field, messages.min(label, min));
-			} else if (max && number < max) {
+			} else if (max != undefined && number < max) {
 				errors.set(field, messages.max(label, max));
 			} else if (mustBeAnInteger && !isInteger(number)) {
 				errors.set(field, messages.mustBeAnInteger(label));
 			} else if (
-				mustHavePrecision &&
-				!hasPrecision(number, mustHavePrecision)
+				mustHavePrecision && !hasPrecision(number, mustHavePrecision)
 			) {
 				errors.set(field, messages.mustHavePrecision(label, mustHavePrecision));
 			}
+
 		} else if (required) {
 			errors.set(field, messages.required(label));
 		}

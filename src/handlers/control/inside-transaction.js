@@ -3,7 +3,7 @@ function insideTransaction() {
 
 		if (state.has("transaction")) return next();
 
-		const transaction = await state.sequelize.transaction();
+		const transaction = await state.get("sequelize").transaction();
 
 		try {
 			state.set("transaction", transaction);

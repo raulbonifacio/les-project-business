@@ -21,7 +21,7 @@ function validateDate(
 
 	return ({ input, errors }, next) => {
 		if (input.has(field)) {
-			if (isDate(input.get(field))) {
+			if (!isDate(input.get(field))) {
 				errors.set(field, messages.isDate(label));
 			}
 

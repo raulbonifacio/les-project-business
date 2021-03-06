@@ -1,10 +1,10 @@
 const validatePhoneNumber = require("../../validation/validate-phone-number");
 
-function validateUserPhoneNumber() {
+function validateUserPhoneNumberNumber() {
 	return validatePhoneNumber({
-		field: "phoneNumber",
+		field: "phoneNumberNumber",
 		label: "número de telefone",
 	});
 }
 
-module.exports = validateUserPhoneNumber;
+module.exports = validateUserPhoneNumberNumber;

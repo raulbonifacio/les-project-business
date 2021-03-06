@@ -30,12 +30,8 @@ const initials = [
 	"TO",
 ];
 
-function validateStateInitial() {
-	return validateString({
-		field: "state",
-		label: "estado",
-		mustBeOneOf: initials,
-	});
+function validateStateInitial({ field, label = field }) {
+	return validateString({ field, label, mustBeOneOf: initials });
 }
 
 module.exports = validateStateInitial;
