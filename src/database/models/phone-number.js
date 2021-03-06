@@ -3,15 +3,15 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
 
 	class PhoneNumber extends Model {
-		static associate({ PhoneNumberType, PersonalInformation }) {
+		static associate({ PhoneNumberType, Profile }) {
 			PhoneNumber.belongsTo(PhoneNumberType, {
 				foreignKey: "phoneNumberTypeId",
 				as: "phoneNumberType",
 			});
 
-			PhoneNumber.belongsTo(PersonalInformation, {
-				foreignKey: "personalInformationId",
-				as: "personalInformation",
+			PhoneNumber.belongsTo(Profile, {
+				foreignKey: "profileId",
+				as: "profile",
 			});
 		}
 	}

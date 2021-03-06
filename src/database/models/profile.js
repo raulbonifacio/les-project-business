@@ -1,10 +1,22 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-
 	class PersonalInformation extends Model {
-		static associate({ User }) {
-			PersonalInformation.belongsTo(User, { foreignKey: "userId", as: "user" });
+		static associate({ User, PhoneNumber, Address }) {
+			PersonalInformation.belongsTo(User, {
+				foreignKey: "userId",
+				as: "user",
+			});
+
+			PersonalInformation.hasMany(PhoneNumber, {
+				foreignKey: "profileId",
+				as: "phoneNumber",
+			});
+
+			PersonalInformation.hasMany(Address, {
+				foreignKey: "profileId",
+				as: "address",
+			});
 		}
 	}
 
@@ -18,11 +30,10 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			modelName: "PersonalInformation",
+			modelName: "Profile",
 			paranoid: true,
 		}
 	);
 
 	return PersonalInformation;
 };
-

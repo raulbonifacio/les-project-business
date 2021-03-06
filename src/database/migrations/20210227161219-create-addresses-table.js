@@ -7,14 +7,15 @@ module.exports = {
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			personalInformationId: {
+			profileId: {
 				allowNull: true,
 				type: Sequelize.INTEGER,
 				references: {
 					model: {
-						tableName: "PersonalInformations",
+						tableName: "Profiles",
 					},
 					key: "id",
+						
 				},
 			},
 			addressTypeId: {
@@ -33,7 +34,7 @@ module.exports = {
 			postalCode: {
 				type: Sequelize.STRING,
 			},
-			address: {
+			publicArea: {
 				type: Sequelize.STRING,
 			},
 			state: {
@@ -42,11 +43,11 @@ module.exports = {
 			number: {
 				type: Sequelize.STRING,
 			},
+			withoutNumber: {
+				type: Sequelize.BOOLEAN,
+			},
 			complement: {
 				type: Sequelize.STRING,
-			},
-			hasNumber: {
-				type: Sequelize.BOOLEAN,
 			},
 			createdAt: {
 				allowNull: false,

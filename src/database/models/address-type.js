@@ -1,6 +1,7 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
+
 	class AddressType extends Model {
 		static associate({ Address }) {
 			AddressType.hasMany(Address, {
