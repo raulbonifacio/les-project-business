@@ -1,7 +1,8 @@
 const assert = require("assert");
 const Context = require("./context");
 
-function facade(handlers = {}, state = {}) {
+function facade(handlers = {}, state ) {
+
 	for (const [name, handler] of Object.entries(handlers)) {
 		assert(handler instanceof Function, `The ${name} is not a function.`);
 	}
