@@ -26,13 +26,12 @@ function storeUser() {
 		} = Object.fromEntries(input);
 
 		const user = await models.User.create({}, { transaction });
-		output.user = user.get();
+		output.set("user", user.get());
 
-		const login = await user.createLogin(
+		await user.createLogin(
 			{ email: loginEmail, password: loginPassword },
 			{ transaction }
 		);
-		output.user.login = login.get();
 
 		const profile = await user.createProfile(
 			{
@@ -44,18 +43,16 @@ function storeUser() {
 			},
 			{ transaction }
 		);
-		output.user.profile = profile.get();
 
-		const phoneNumber = await profile.createPhoneNumber(
+		await profile.createPhoneNumber(
 			{
 				number: phoneNumberNumber,
 				phoneNumberTypeId: phoneNumberTypeId,
 			},
 			{ transaction }
 		);
-		output.user.phoneNumber = phoneNumber.get();
 
-		const address = await profile.createAddress(
+		await profile.createAddress(
 			{
 				address: addressAddress,
 				addressType: addressTypeId,
@@ -69,7 +66,6 @@ function storeUser() {
 			},
 			{ transaction }
 		);
-		output.user.address = address.get();
 
 		return next();
 	};

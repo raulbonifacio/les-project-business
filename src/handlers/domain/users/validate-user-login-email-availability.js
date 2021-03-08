@@ -6,6 +6,7 @@ function validateUserLoginEmailAvailability() {
 		const models = state.get("models");
 
 		const { loginEmail, userId = 0 } = Object.fromEntries(input);
+		console.log(input);
 
 		const found = await models.Login.findOne(
 			{ where: { email: loginEmail, userId: { [Op.ne]: userId } } },
@@ -13,7 +14,7 @@ function validateUserLoginEmailAvailability() {
 		);
 
 		if (found) {
-			errors.set("email", `O campo e-mail não está disponível.`);
+			errors.set("loginEmail", `O campo e-mail não está disponível.`);
 		}
 
 		await next();

@@ -13,7 +13,7 @@ function validateUserProfileCPFAvailability() {
 		);
 
 		if (found) {
-			errors.set("cpf", `O campo CPF não está disponível.`);
+			errors.set("profileCPF", `O campo CPF não está disponível.`);
 		}
 
 		await next();
