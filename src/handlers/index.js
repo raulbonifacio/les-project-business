@@ -13,6 +13,7 @@ const validateUserAddressState = require("./domain/users/validate-user-address-s
 const validateUserLoginEmail = require("./domain/users/validate-user-login-email");
 const validateUserLoginEmailAvailability = require("./domain/users/validate-user-login-email-availability");
 const validateUserLoginPassword = require("./domain/users/validate-user-login-password");
+const validateUserPhoneNumberNumber = require("./domain/users/validate-user-phone-number-number");
 const validateUserProfileBirthDate = require("./domain/users/validate-user-profile-birth-date");
 const validateUserProfileCPF = require("./domain/users/validate-user-profile-cpf");
 const validateUserProfileCPFAvailability = require("./domain/users/validate-user-profile-cpf-availability");
@@ -37,7 +38,7 @@ exports.createUser = () =>
 		validateUserProfileBirthDate(),
 		validateUserProfileFirstName(),
 		validateUserProfileLastName(),
-		withoutErrors(),
+		validateUserPhoneNumberNumber(),
 		insideTransaction(),
 		validateUserLoginEmailAvailability(),
 		validateUserProfileCPFAvailability(),
