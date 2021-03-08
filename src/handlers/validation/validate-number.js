@@ -1,7 +1,6 @@
 const {
 	isInteger,
 	hasPrecision,
-
 } = require("../../services/number-validation-service");
 
 const defaultMessages = {
@@ -10,7 +9,8 @@ const defaultMessages = {
 	min: (label, min) => `O campo ${label} não pode ser menor que ${min}.`,
 	max: (label, max) => `O campo ${label} não pode ser maior que ${max}.`,
 	mustBeAnInteger: label => `O campo ${label} precisa ser um número inteiro.`,
-	mustHavePrecision: (label, precision) => `O campo ${label} precisa ter ${precision} dígitos de precisão.`,
+	mustHavePrecision: (label, precision) =>
+		`O campo ${label} precisa ter ${precision} dígitos de precisão.`,
 };
 
 function validateNumber(
@@ -18,7 +18,6 @@ function validateNumber(
 		field,
 		label = field,
 		required = true,
-		strict = true,
 		min,
 		max,
 		mustBeAnInteger,
@@ -29,25 +28,22 @@ function validateNumber(
 	messages = { ...messages, ...defaultMessages };
 
 	return ({ input, errors }, next) => {
+
 		if (input.has(field)) {
-			if (strict && Number.isNaN(Number(input.get(field)))) {
+
+			const val = input.get(field);
+
+			if (typeof val != "number" || Number.isNaN(Number(input.get(field)))) {
 				errors.set(field, messages.type(label));
-			}
-
-			const number = Number(input.get(field));
-
-			if (min != undefined && number < min) {
+			} else if (min != undefined && val < min) {
 				errors.set(field, messages.min(label, min));
-			} else if (max != undefined && number < max) {
+			} else if (max != undefined && val < max) {
 				errors.set(field, messages.max(label, max));
-			} else if (mustBeAnInteger && !isInteger(number)) {
+			} else if (mustBeAnInteger && !isInteger(val)) {
 				errors.set(field, messages.mustBeAnInteger(label));
-			} else if (
-				mustHavePrecision && !hasPrecision(number, mustHavePrecision)
-			) {
+			} else if (mustHavePrecision && !hasPrecision(val, mustHavePrecision)) {
 				errors.set(field, messages.mustHavePrecision(label, mustHavePrecision));
 			}
-
 		} else if (required) {
 			errors.set(field, messages.required(label));
 		}

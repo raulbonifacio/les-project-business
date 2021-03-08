@@ -9,15 +9,28 @@ const {
 const defaultMessages = {
 	required: label => `O campo ${label} não foi enviado.`,
 	type: label => `O campo ${label} não é uma string.`,
-	min: (label, min) => `O campo ${label} precisa conter mais de ${min} caractere${ min > 1 ? "s" : "" }.`,
-	max: (label, max) => `O campo ${label} precisar conter menos de ${max} caractere${ min > 1 ? "s" : "" }.`,
+	min: (label, min) =>
+		`O campo ${label} precisa conter mais de ${min} caractere${
+			min > 1 ? "s" : ""
+		}.`,
+	max: (label, max) =>
+		`O campo ${label} precisar conter menos de ${max} caractere${
+			min > 1 ? "s" : ""
+		}.`,
 	filled: label => `O campo ${label} precisa estar preenchido.`,
-	matches: (label, matches) => `O campo ${label} não atende ao formato: ${matches}.`,
+	matches: (label, matches) =>
+		`O campo ${label} não atende ao formato: ${matches}.`,
 	mustIncludeNumbers: label => `O campo ${label} precisa conter números.`,
-	mustIncludeDifferentCases: label => `O campo ${label} precisa conter letras maiúsculas e minúsculas.`,
-	mustIncludeSpecialCharacters: label => `O campo ${label} precisa conter caracteres especiais.`,
-	mustBeOneOf: (label, be) => `O campo ${label} precisa ser um dos seguintes valores: ${be.join(", ")} .`,
-	mustMatchOneOf: (label, match) => `O campo ${label} precisa ser um dos seguintes formatos: ${match.join( ", ")} .`,
+	mustIncludeDifferentCases: label =>
+		`O campo ${label} precisa conter letras maiúsculas e minúsculas.`,
+	mustIncludeSpecialCharacters: label =>
+		`O campo ${label} precisa conter caracteres especiais.`,
+	mustBeOneOf: (label, be) =>
+		`O campo ${label} precisa ser um dos seguintes valores: ${be.join(", ")} .`,
+	mustMatchOneOf: (label, match) =>
+		`O campo ${label} precisa ser um dos seguintes formatos: ${match.join(
+			", "
+		)} .`,
 };
 
 function validateString(options, messages) {
@@ -25,7 +38,6 @@ function validateString(options, messages) {
 		field,
 		label,
 		required = true,
-		strict = true,
 		min,
 		max,
 		filled,
@@ -50,13 +62,9 @@ function validateString(options, messages) {
 		if (input.has(field)) {
 			let val = input.get(field);
 
-			if (strict && typeof val != "string") {
+			if (typeof val != "string") {
 				errors.set(field, messages.type(label));
-			} else {
-				val = String(val);
-			}
-
-			if (filled && val.length == 0) {
+			} else if (filled && val.length == 0) {
 				errors.set(field, messages.filled(label));
 			} else if (min && val.length < min) {
 				errors.set(field, messages.min(label, min));

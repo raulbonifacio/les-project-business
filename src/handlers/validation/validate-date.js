@@ -1,8 +1,4 @@
-const {
-	isAfter,
-	isBefore,
-	isDate,
-} = require("../../services/date-validation-service");
+const { isAfter, isBefore } = require("../../services/date-validation-service");
 
 const defaultMessages = {
 	required: label => `O campo ${label} não foi enviado.`,
@@ -21,20 +17,16 @@ function validateDate(
 
 	return ({ input, errors }, next) => {
 		if (input.has(field)) {
-			if (!isDate(input.get(field))) {
+
+			const date = input.get(field);
+
+			if (!(date instanceof Date)) {
 				errors.set(field, messages.isDate(label));
-			}
-
-			const date = new Date(input.get(field));
-
-			if (mustBeAfter && isAfter(date, mustBeAfter)) {
+			} else if (mustBeAfter && isAfter(date, mustBeAfter)) {
 				errors.set(field, messages.mustBeAfter(label, mustBeAfter));
-			}
-
-			if (mustBeBefore && isBefore(date, mustBeBefore)) {
+			} else if (mustBeBefore && isBefore(date, mustBeBefore)) {
 				errors.set(field, messages.mustBeBefore(label, mustBeBefore));
 			}
-
 		} else if (required) {
 			errors.set(field, messages.required(label));
 		}
