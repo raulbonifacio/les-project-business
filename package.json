@@ -5,7 +5,6 @@
 	"main": "src/index.js",
 	"devDependencies": {},
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"interactive": "node -i -r 'dotenv/config' -e '_ = require(\"./src/index.js\")' --experimental-repl-await",
 		"migrate": "npx sequelize-cli db:migrate",
 		"undo-migrate": "npx sequelize-cli db:migrate:undo",
@@ -16,6 +15,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"bcrypt": "^5.0.0",
+		"chalk": "^4.1.0",
 		"cls-hooked": "^4.2.2",
 		"dotenv": "^8.2.0",
 		"fastest-validator": "^1.10.0",
