@@ -1,6 +1,5 @@
 function storeUser() {
 	return async ({ input, output, state }, next) => {
-
 		const models = state.get("models");
 		const transaction = state.get("transaction");
 
@@ -43,8 +42,9 @@ function storeUser() {
 			},
 			{ transaction }
 		);
+		output.get("user").profile = await profile.get();
 
-		await profile.createPhoneNumber(
+		await user.createPhoneNumber(
 			{
 				number: phoneNumberNumber,
 				phoneNumberTypeId: phoneNumberTypeId,
@@ -52,7 +52,7 @@ function storeUser() {
 			{ transaction }
 		);
 
-		await profile.createAddress(
+		await user.createAddress(
 			{
 				address: addressAddress,
 				addressType: addressTypeId,

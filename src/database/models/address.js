@@ -3,14 +3,14 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
 
 	class Address extends Model {
-		static associate({ Profile, AddressType }) {
+		static associate({ User, AddressType }) {
 			Address.belongsTo(AddressType, {
 				foreignKey: "addressTypeid",
 				as: "addressType",
 			});
-			Address.belongsTo(Profile, {
-				foreignKey: "profileId",
-				as: "profile",
+			Address.belongsTo(User, {
+				foreignKey: "userId",
+				as: "user",
 			});
 		}
 	}
