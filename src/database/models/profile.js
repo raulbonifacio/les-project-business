@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
 
 			PersonalInformation.hasMany(PhoneNumber, {
 				foreignKey: "profileId",
-				as: "phoneNumber",
+				as: "phoneNumbers",
 			});
 
 			PersonalInformation.hasMany(Address, {
 				foreignKey: "profileId",
-				as: "address",
+				as: "addresses",
 			});
 		}
 	}
