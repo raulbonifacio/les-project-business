@@ -18,17 +18,17 @@ module.exports = {
 						
 				},
 			},
-			addressTypeId: {
+			residenceTypeId: {
 				allowNull: true,
 				type: Sequelize.INTEGER,
 				references: {
 					model: {
-						tableName: "AddressTypes",
+						tableName: "ResidenceTypes",
 					},
 					key: "id",
 				},
 			},
-			description: {
+			name: {
 				type: Sequelize.STRING,
 			},
 			postalCode: {
@@ -37,13 +37,25 @@ module.exports = {
 			publicArea: {
 				type: Sequelize.STRING,
 			},
+			publicAreaType: {
+				type: Sequelize.STRING,
+			},
 			state: {
+				type: Sequelize.STRING,
+			},
+			city: {
 				type: Sequelize.STRING,
 			},
 			number: {
 				type: Sequelize.STRING,
 			},
 			withoutNumber: {
+				type: Sequelize.BOOLEAN,
+			},
+			isBillingAddress: {
+				type: Sequelize.BOOLEAN,
+			},
+			isDeliveryAddress: {
 				type: Sequelize.BOOLEAN,
 			},
 			complement: {

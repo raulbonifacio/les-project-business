@@ -2,26 +2,26 @@ const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
 
-	class AddressType extends Model {
+	class ResidenceType extends Model {
 		static associate({ Address }) {
-			AddressType.hasMany(Address, {
-				foreignKey: "addressTypeId",
-				as: "addressType",
+			ResidenceType.hasMany(Address, {
+				foreignKey: "residenceTypeId",
+				as: "residenceType",
 			});
 		}
 	}
 
-	AddressType.init(
+	ResidenceType.init(
 		{
 			name: DataTypes.STRING,
 		},
 		{
 			sequelize,
-			modelName: "AddressType",
+			modelName: "ResidenceType",
 			paranoid: true,
 		}
 	);
 
-	return AddressType;
+	return ResidenceType;
 };
 

@@ -5,7 +5,7 @@ module.exports = {
 				id: 1,
 				number: "(00) 00000-0000",
 				phoneNumberTypeId: 2,
-				profileId: 0,
+				userId: 1,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 				deletedAt: null,
@@ -14,7 +14,7 @@ module.exports = {
 				id: 2,
 				number: "(00) 00000-0000",
 				phoneNumberTypeId: 2,
-				profileId: 2,
+				userId: 2,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 				deletedAt: null,
@@ -23,7 +23,7 @@ module.exports = {
 				id: 3,
 				number: "(00) 00000-0000",
 				phoneNumberTypeId: 2,
-				profileId: 3,
+				userId: 3,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 				deletedAt: null,
@@ -32,7 +32,7 @@ module.exports = {
 				id: 4,
 				number: "(00) 00000-0000",
 				phoneNumberTypeId: 2,
-				profileId: 4,
+				userId: 4,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 				deletedAt: null,
@@ -41,6 +41,6 @@ module.exports = {
 	},
 
 	down: async (queryInterface, _Sequelize) => {
-		await queryInterface.bulkDelete("Logins", {});
+		await queryInterface.bulkDelete("PhoneNumbers", {});
 	},
 };

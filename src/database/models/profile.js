@@ -1,26 +1,16 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-	class PersonalInformation extends Model {
-		static associate({ User, PhoneNumber, Address }) {
-			PersonalInformation.belongsTo(User, {
+	class Profile extends Model {
+		static associate({ User}) {
+			Profile.belongsTo(User, {
 				foreignKey: "userId",
 				as: "user",
-			});
-
-			PersonalInformation.hasMany(PhoneNumber, {
-				foreignKey: "profileId",
-				as: "phoneNumbers",
-			});
-
-			PersonalInformation.hasMany(Address, {
-				foreignKey: "profileId",
-				as: "addresses",
 			});
 		}
 	}
 
-	PersonalInformation.init(
+	Profile.init(
 		{
 			firstName: DataTypes.STRING,
 			lastName: DataTypes.STRING,
@@ -35,5 +25,5 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	);
 
-	return PersonalInformation;
+	return Profile;
 };

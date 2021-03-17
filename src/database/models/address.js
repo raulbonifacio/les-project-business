@@ -1,12 +1,11 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-
 	class Address extends Model {
-		static associate({ User, AddressType }) {
-			Address.belongsTo(AddressType, {
-				foreignKey: "addressTypeid",
-				as: "addressType",
+		static associate({ User, ResidenceType }) {
+			Address.belongsTo(ResidenceType, {
+				foreignKey: "residenceTypeId",
+				as: "residenceType",
 			});
 			Address.belongsTo(User, {
 				foreignKey: "userId",
@@ -17,13 +16,16 @@ module.exports = (sequelize, DataTypes) => {
 
 	Address.init(
 		{
-			description: DataTypes.STRING,
+			name: DataTypes.STRING,
 			postalCode: DataTypes.STRING,
 			publicArea: DataTypes.STRING,
 			state: DataTypes.STRING,
+			city: DataTypes.STRING,
 			number: DataTypes.STRING,
 			withoutNumber: DataTypes.BOOLEAN,
 			complement: DataTypes.STRING,
+			isBillingAddress: DataTypes.BOOLEAN,
+			isDeliveryAddress: DataTypes.BOOLEAN,
 		},
 		{
 			sequelize,
