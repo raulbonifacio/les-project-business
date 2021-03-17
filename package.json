@@ -5,11 +5,10 @@
 	"main": "src/index.js",
 	"devDependencies": {},
 	"scripts": {
-		"interactive": "node -i -r 'dotenv/config' -e '_ = require(\"./src/index.js\")' --experimental-repl-await",
-		"migrate": "npx sequelize-cli db:migrate",
-		"undo-migrate": "npx sequelize-cli db:migrate:undo",
-		"seed": "npx sequelize-cli db:seed:all",
-		"undo-seed": "npx sequelize-cli db:seed:undo:all"
+		"configure-database": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+		"reset-database": "npx sequelize-cli db:seed:undo:all && sequelize-cli db:migrate:undo:all",
+		"reconfigure-database": "npm run reset-database && npm run configure-database",
+		"interactive": "node -i -r 'dotenv/config' -e 'const { facade:_  } = require(\"./src/index.js\")' --experimental-repl-await"
 	},
 	"author": "",
 	"license": "ISC",
@@ -21,6 +20,7 @@
 		"fastest-validator": "^1.10.0",
 		"mariadb": "^2.5.2",
 		"nodemon": "^2.0.6",
+		"npm": "^7.6.3",
 		"sequelize": "^6.3.5"
 	}
 }
