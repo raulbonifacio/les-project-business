@@ -13,18 +13,22 @@ function storeUser() {
 			profileCPF,
 			phoneNumberNumber,
 			phoneNumberTypeId,
-			addressAddress,
+			addressPublicArea,
+			addressName,
+			addressPublicAreaType,
 			addressNumber,
-			addressTypeId,
 			addressCity,
 			addressState,
 			addressPostalCode,
 			addressComplement,
 			addressNeighbourhood,
 			addressWithoutNumber = false,
+			isBillingAddress,
+			isDeliveryAddress,
 		} = Object.fromEntries(input);
 
 		const user = await models.User.create({}, { transaction });
+
 		output.set("user", user.get());
 
 		await user.createLogin(
@@ -54,8 +58,9 @@ function storeUser() {
 
 		await user.createAddress(
 			{
-				address: addressAddress,
-				addressType: addressTypeId,
+				name: addressName,
+				publicArea: addressPublicArea,
+				publicAreaType: addressPublicAreaType,
 				number: addressNumber,
 				city: addressCity,
 				state: addressState,
@@ -63,6 +68,8 @@ function storeUser() {
 				withoutNumber: addressWithoutNumber,
 				complement: addressComplement,
 				neighbourhood: addressNeighbourhood,
+				isDeliveryAddress,
+				isBillingAddress,
 			},
 			{ transaction }
 		);

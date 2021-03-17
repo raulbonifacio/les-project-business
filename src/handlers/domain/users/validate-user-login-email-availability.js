@@ -2,6 +2,9 @@ const { Op } = require("sequelize");
 
 function validateUserLoginEmailAvailability() {
 	return async ({ input, errors, state }, next) => {
+
+		if(errors.has("loginEmail")) return next();
+
 		const transaction = state.get("transaction");
 		const models = state.get("models");
 
