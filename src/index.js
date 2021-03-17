@@ -9,4 +9,6 @@ const state = {
 	models,
 };
 
-module.exports = facade(handlers, state);
+module.exports = {
+	facade: facade(handlers, state),
+};
