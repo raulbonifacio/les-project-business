@@ -1,6 +1,16 @@
 const chain = require("../chain");
 const insideTransaction = require("./control/inside-transaction");
 const withoutErrors = require("./control/without-errors");
+const fetchAddressesByUserId = require("./domain/addresses/fetch-addresses-by-user-id");
+const validateAddressUserId = require("./domain/addresses/validate-address-user-id");
+const fetchLoginByUserId = require("./domain/logins/fetch-login-by-user-id");
+const validateLoginUserId = require("./domain/logins/validate-login-user-id");
+const fetchProfileByUserId = require("./domain/profile/fetch-profile-by-user-id");
+const validateProfileUserId = require("./domain/profile/validate-profile-user-id");
+const encryptUserLoginEmailPassword = require("./domain/users/encrypt-user-login-email-password");
+const fetchUserByLoginCredentials = require("./domain/users/fetch-user-by-login-credentials");
+const fillUserAddressDefaultValues = require("./domain/users/fill-user-address-default-values");
+const fillUserPhoneTypeId = require("./domain/users/fill-user-phone-number-type-id");
 const storeUser = require("./domain/users/store-user");
 const validateUserAddressCity = require("./domain/users/validate-user-address-city");
 const validateUserAddressComplement = require("./domain/users/validate-user-address-complement");
@@ -21,7 +31,7 @@ const validateUserProfileFirstName = require("./domain/users/validate-user-profi
 const validateUserProfileLastName = require("./domain/users/validate-user-profile-last-name");
 const validateUserProfileSex = require("./domain/users/validate-user-profile-sex");
 
-exports.createUser = () =>
+exports.storeUser = () =>
 	chain(
 		validateUserAddressPublicArea(),
 		validateUserAddressPublicAreaType(),
@@ -43,5 +53,25 @@ exports.createUser = () =>
 		validateUserLoginEmailAvailability(),
 		validateUserProfileCPFAvailability(),
 		withoutErrors(),
-		storeUser(),
+		encryptUserLoginEmailPassword(),
+		fillUserAddressDefaultValues(),
+		fillUserPhoneTypeId(),
+		storeUser()
 	);
+
+exports.fetchUserByLoginCredentials = () =>
+	chain(
+		validateUserLoginEmail(),
+		validateUserLoginPassword(),
+		withoutErrors(),
+		fetchUserByLoginCredentials()
+	);
+
+exports.fetchProfileByUserId = () =>
+	chain(validateProfileUserId(), fetchProfileByUserId());
+
+exports.fetchLoginByUserId = () =>
+	chain(validateLoginUserId(), fetchLoginByUserId());
+
+exports.fetchAddressesByUserId = () =>
+	chain(validateAddressUserId(), fetchAddressesByUserId());

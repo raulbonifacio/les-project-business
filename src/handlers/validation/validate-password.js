@@ -6,7 +6,6 @@ function validatePassword({ field, label = field }) {
 		field,
 		label,
 		min: 8,
-		mustIncludeNumbers: true,
 		mustIncludeDifferentCases: true,
 		mustIncludeSpecialCharacters: true,
 	}));

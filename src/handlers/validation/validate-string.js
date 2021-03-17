@@ -9,28 +9,15 @@ const {
 const defaultMessages = {
 	required: label => `O campo ${label} não foi enviado.`,
 	type: label => `O campo ${label} não é uma string.`,
-	min: (label, min) =>
-		`O campo ${label} precisa conter mais de ${min} caractere${
-			min > 1 ? "s" : ""
-		}.`,
-	max: (label, max) =>
-		`O campo ${label} precisar conter menos de ${max} caractere${
-			min > 1 ? "s" : ""
-		}.`,
 	filled: label => `O campo ${label} precisa estar preenchido.`,
-	matches: (label, matches) =>
-		`O campo ${label} não atende ao formato: ${matches}.`,
+	min: (label, min) => `O campo ${label} precisa conter mais de ${min} caractere${ min > 1 ? "s" : "" }.`,
+	max: (label, max) => `O campo ${label} precisar conter menos de ${max} caractere${ min > 1 ? "s" : "" }.`,
+	matches: (label, matches) => `O campo ${label} não atende ao formato: ${matches}.`,
 	mustIncludeNumbers: label => `O campo ${label} precisa conter números.`,
-	mustIncludeDifferentCases: label =>
-		`O campo ${label} precisa conter letras maiúsculas e minúsculas.`,
-	mustIncludeSpecialCharacters: label =>
-		`O campo ${label} precisa conter caracteres especiais.`,
-	mustBeOneOf: (label, be) =>
-		`O campo ${label} precisa ser um dos seguintes valores: ${be.join(", ")} .`,
-	mustMatchOneOf: (label, match) =>
-		`O campo ${label} precisa ser um dos seguintes formatos: ${match.join(
-			", "
-		)} .`,
+	mustIncludeDifferentCases: label => `O campo ${label} precisa conter letras maiúsculas e minúsculas.`,
+	mustIncludeSpecialCharacters: label => `O campo ${label} precisa conter caracteres especiais.`,
+	mustBeOneOf: (label, be) => `O campo ${label} precisa ser um dos seguintes valores: ${be.join(", ")} .`,
+	mustMatchOneOf: (label, match) => `O campo ${label} precisa ser um dos seguintes formatos: ${match.join( ", ")} .`,
 };
 
 function validateString(options, messages) {
